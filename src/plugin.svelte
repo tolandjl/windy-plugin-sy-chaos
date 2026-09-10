@@ -39,6 +39,7 @@
 
     const TRACK_URL = 'https://cdn.predictwind.com/tracking/data/SY-Chaos.json';
     const REFRESH_MS = 5 * 60 * 1000;
+    const PROJECTION_SPEED = 7.5; // fixed speed for the heading range line (knots)
 
     // ---------- helpers ----------
     function splitAtAntimeridian(coords: [number, number][]): [number, number][][] {
@@ -137,14 +138,14 @@
                 }
             }
 
-            // ---- 6-hour heading line + 1-hour ticks ----
+            // ---- 6-hour heading line + 1-hour ticks (fixed 7.5 kt) ----
             if (headingLine) map.removeLayer(headingLine);
             tickMarkers.forEach(t => map.removeLayer(t));
             tickMarkers = [];
 
-            if (heading != null && speed > 0.3) {
+            if (heading != null) {
                 // Main 6-hour line
-                const end6h = projectHeading(lat, lon, heading, speed, 6);
+                const end6h = projectHeading(lat, lon, heading, PROJECTION_SPEED, 6);
                 headingLine = L.polyline([[lat, lon], end6h], {
                     color: '#ffffff',
                     weight: 2,
@@ -154,7 +155,7 @@
 
                 // 1-hour tick marks (hours 1 → 5)
                 for (let h = 1; h <= 5; h++) {
-                    const pos = projectHeading(lat, lon, heading, speed, h);
+                    const pos = projectHeading(lat, lon, heading, PROJECTION_SPEED, h);
                     const tick = L.circleMarker(pos, {
                         radius: 3.5,
                         color: '#ffffff',
