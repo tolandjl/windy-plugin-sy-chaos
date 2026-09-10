@@ -1,17 +1,18 @@
 import type { ExternalPluginConfig } from '@windy/interfaces';
 
 const config: ExternalPluginConfig = {
-    name: 'windy-plugin-my-plugin',
+    name: 'windy-plugin-sy-chaos',   // MUST start with "windy-plugin-"
     version: '0.1.0',
-    icon: '🔌',
-    title: 'This is my first plugin',
-    description: 'This is my first plugin.',
-    author: 'John Doe (optional company name)',
-    repository: 'https://github.com/windycom/windy-plugin-template',
+    title: 'SY-Chaos Tracker',
+    icon: '⛵',
+    description: 'Live position of SY-Chaos from PredictWind tracking',
+    author: 'Your Name',
+    repository: 'https://github.com/YOUR_USERNAME/windy-plugin-sy-chaos', // optional
     desktopUI: 'rhpane',
-    mobileUI: 'fullscreen',
-    routerPath: '/my-plugin',
-    private: true,
+    mobileUI: 'small',
+    desktopWidth: 220,
+    routerPath: '/sy-chaos',
+    private: true,                  // keep private for personal use
 };
 
 export default config;
